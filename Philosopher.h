@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:54:28 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/26 17:22:11 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:00:27 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ typedef struct s_data{
 }	t_data;
 
 //mutex for print, if dead, forks (array of mutex for every fork)
-int				arg_check(char **argv, t_data *data);
+int				check_arg(char **argv, t_data *data);
 int				ft_atoi(const char *str);
-int				error(t_data *data, int i);
+// int				error(t_data *data, int i);
 long long int	get_time(t_data *data);
 void			threads(t_data *data);
 int				mutex_intit(t_data	*data);
@@ -63,14 +63,14 @@ void			my_sleep(t_philo *ph, int ms);
 void			drop_forks(t_philo *ph);
 int				print_f(t_philo *philo, char c);
 void			go_sleep(t_philo *philo);
-int				fork_check(t_philo *philo);
+int				check_forks(t_philo *philo);
 void			eating(t_philo *philo);
 void			set_philos(t_data *data, t_philo *philo);
 void			init(t_data *data);
-void			thread_help(t_philo *philo);
+// void			thread_help(t_philo *philo);
 void			death(t_data *data);
 int				death_check(t_philo *philo);
-void			print_death(t_philo *p);
+// void			print_death(t_philo *p);
 void			destroy_mutex(t_data *data);
 
 #endif

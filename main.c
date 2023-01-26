@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:51:50 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/26 17:21:15 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:01:37 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*philo_routine(void *ph)
 	philo->times_ate = 0;
 	while (!philo->data->death_flag)
 	{
-		while (!fork_check(philo))
+		while (!check_forks(philo))
 			usleep(500);
 		eating(philo);
 		drop_forks(philo);
@@ -83,17 +83,29 @@ int	main(int argc, char **argv)
 	data = (t_data *)calloc(1, sizeof(t_data));
 	if (!data)
 		return (0);
-	while (argv[i])
+		if (!(argc == 5 || argc == 6))
 	{
-		if (ft_atoi(argv[i]) == 0)
-		{
-			error(data, 1);
-			return (0);
-		}
-		i++;
-	}
-	if (!arg_check(argv, data))
+		free(data);
+		printf("Invalid number of arguements\n");
 		return (0);
+	}
+	if (!check_arg(argv, data))
+	{
+		free(data);
+		printf("Invalid arguements\n");
+		return (0);
+	}
+	// while (argv[i])
+	// {
+	// 	if (ft_atoi(argv[i]) == 0)
+	// 	{
+	// 		error(data, 1);
+	// 		return (0);
+	// 	}
+	// 	i++;
+	// }
+	// if (!arg_check(argv, data))
+	// 	return (0);
 	init(data);
 	destroy_mutex(data);
 }

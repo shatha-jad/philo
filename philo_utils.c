@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:59:57 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/26 17:21:40 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:00:09 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,57 +85,57 @@ void	death(t_data *data)
 	pthread_mutex_unlock(&data->mutex_dead);
 }
 
-// int	death_check(t_philo *philo)
-// {
-// 	long long	t;
-
-// 	pthread_mutex_lock(&philo->data->mutex_dead);
-// 	if (philo->data->death_flag)
-// 		{
-// 			pthread_mutex_unlock(&philo->data->mutex_dead);
-// 			return (0);
-// 		}
-// 	// pthread_mutex_unlock(&philo->data->mutex_dead);
-// 	// pthread_mutex_lock(&philo->data->mutex_meal);
-// 	t = get_time(NULL) - philo->last_meal;
-// 	// printf("last meal%lld for philo:%d  ", philo->last_meal, philo->philo_id);
-// 	// pthread_mutex_unlock(&philo->data->mutex_meal);
-// 	// pthread_mutex_lock(&philo->data->mutex_dead);
-// 	if (t >= philo->data->tdie)
-// 	{
-// 		print_f(philo, 'd');
-// 		philo->death_flag = 1;
-// 		philo->data->death_flag = 1;
-// 		pthread_mutex_unlock(&philo->data->mutex_dead);
-// 		return (0);
-// 	}
-// 	pthread_mutex_unlock(&philo->data->mutex_dead);
-// 	return (1);
-// }
-
-
-int	is_philo_dead(t_philo *philo)
+int	death_check(t_philo *philo)
 {
-	long long	n_time;
-	int			flag;
+	long long	t;
 
-	flag = 0;
 	pthread_mutex_lock(&philo->data->mutex_dead);
 	if (philo->data->death_flag)
-		flag = 1;
-	else
-	{
-		n_time = get_time(NULL) - philo->last_meal;
-		if ((n_time) > (philo->data->tdie))
 		{
-			pthread_mutex_lock(&philo->data->mutex_print);
-			print_f(philo, 'd');
-			pthread_mutex_unlock(&philo->data->mutex_print);
-			philo->data->death_flag = 1;
-			philo->death_flag = 1;
-			flag = 1;
+			pthread_mutex_unlock(&philo->data->mutex_dead);
+			return (0);
 		}
+	// pthread_mutex_unlock(&philo->data->mutex_dead);
+	// pthread_mutex_lock(&philo->data->mutex_meal);
+	t = get_time(NULL) - philo->last_meal;
+	// printf("last meal%lld for philo:%d  ", philo->last_meal, philo->philo_id);
+	// pthread_mutex_unlock(&philo->data->mutex_meal);
+	// pthread_mutex_lock(&philo->data->mutex_dead);
+	if (t >= philo->data->tdie)
+	{
+		print_f(philo, 'd');
+		philo->death_flag = 1;
+		philo->data->death_flag = 1;
+		pthread_mutex_unlock(&philo->data->mutex_dead);
+		return (0);
 	}
 	pthread_mutex_unlock(&philo->data->mutex_dead);
-	return (flag);
+	return (1);
 }
+
+
+// int	is_philo_dead(t_philo *philo)
+// {
+// 	long long	n_time;
+// 	int			flag;
+
+// 	flag = 0;
+// 	pthread_mutex_lock(&philo->data->mutex_dead);
+// 	if (philo->data->death_flag)
+// 		flag = 1;
+// 	else
+// 	{
+// 		n_time = get_time(NULL) - philo->last_meal;
+// 		if ((n_time) > (philo->data->tdie))
+// 		{
+// 			pthread_mutex_lock(&philo->data->mutex_print);
+// 			print_f(philo, 'd');
+// 			pthread_mutex_unlock(&philo->data->mutex_print);
+// 			philo->data->death_flag = 1;
+// 			philo->death_flag = 1;
+// 			flag = 1;
+// 		}
+// 	}
+// 	pthread_mutex_unlock(&philo->data->mutex_dead);
+// 	return (flag);
+// }
