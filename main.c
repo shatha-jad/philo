@@ -6,31 +6,40 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:51:50 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/29 16:22:54 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:29:31 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-void	print_f(t_philo *philo, char c)
+int	check_end(t_philo	*philo)
 {
-	long long int	start_time;
-
-	start_time = philo->data->time;
 	pthread_mutex_lock(&philo->data->mutex_dead);
 	pthread_mutex_lock(&philo->data->mutex_eat);
 	if (philo->data->death_flag || philo->data->all_eat)
 	{
 		pthread_mutex_unlock(&philo->data->mutex_dead);
 		pthread_mutex_unlock(&philo->data->mutex_eat);
-		return ;
+		return (0);
 	}
 	pthread_mutex_unlock(&philo->data->mutex_dead);
 	pthread_mutex_unlock(&philo->data->mutex_eat);
+	return (1);
+}
+
+void	print_f(t_philo *philo, char c)
+{
+	long long int	start_time;
+
+	start_time = philo->data->time;
+	if (!check_end(philo))
+		return ;
 	pthread_mutex_lock(&philo->data->mutex_print);
 	if (c == 'e')
 	{		
-		printf("%lld Philosopher %d has taken fork %d and fork %d\n", get_time(NULL) - start_time, philo->philo_id, philo->left_fork + 1, philo->right_fork + 1);
+		printf("%lld Philosopher %d has taken fork %d and fork %d\n",
+			get_time(NULL) - start_time, philo->philo_id, philo->left_fork + 1,
+			philo->right_fork + 1);
 		printf("%lld Philosopher %d is eating\n",
 			get_time(NULL) - start_time, philo->philo_id);
 	}

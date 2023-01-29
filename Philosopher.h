@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:54:28 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/29 15:34:21 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:31:36 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ int				death_monitor(t_data *info);
 void			destroy_mutex(t_data *data);
 int				check_death(t_philo *philo);
 void			print_death(t_philo *philo);
+int				check_end(t_philo	*philo);
 
 #endif
