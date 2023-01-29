@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:43:30 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/29 15:37:32 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:15:57 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	threads(t_data *data)
 	while (i < data->n_philo)
 	{	
 		pthread_create(&data->philos[i], NULL, &philo_routine, &data->philo[i]);
-		usleep(500);
+		usleep(100);
 		i++;
 	}
 	death_monitor(data);

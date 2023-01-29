@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:59:57 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/29 15:35:56 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:46:03 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->mutex_meal);
 	philo->times_ate++;
 	pthread_mutex_lock(&philo->data->mutex_eat);
-	if (philo->times_ate >= philo->data->n_eat)
+	if (philo->times_ate > philo->data->n_eat)
 		philo->data->all_eat = 1;
 	pthread_mutex_unlock(&philo->data->mutex_eat);
 }

@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:51:50 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/29 15:33:50 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:22:54 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ void	print_f(t_philo *philo, char c)
 		printf("%lld Philosopher %d is sleeping\n",
 			get_time(NULL) - start_time, philo->philo_id);
 	if (c == 't')
+	{
 		printf("%lld Philosopher %d is thinking\n",
 			get_time(NULL) - start_time, philo->philo_id);
+		usleep(200);
+	}
 	pthread_mutex_unlock(&philo->data->mutex_print);
 	return ;
 }
@@ -50,7 +53,7 @@ void	*philo_routine(void *ph)
 
 	philo = (t_philo *)ph;
 	if (!philo->philo_id % 2)
-		usleep (100);
+		usleep (200);
 	pthread_mutex_lock(&philo->data->mutex_dead);
 	pthread_mutex_lock(&philo->data->mutex_eat);
 	while (!philo->data->death_flag && !philo->data->all_eat)
@@ -63,6 +66,7 @@ void	*philo_routine(void *ph)
 		drop_forks(philo);
 		go_sleep(philo);
 		print_f(philo, 't');
+		usleep(500);
 		pthread_mutex_lock(&philo->data->mutex_dead);
 		pthread_mutex_lock(&philo->data->mutex_eat);
 	}
