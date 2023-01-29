@@ -6,7 +6,7 @@
 #    By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 19:54:28 by sjadalla          #+#    #+#              #
-#    Updated: 2023/01/26 18:04:43 by sjadalla         ###   ########.fr        #
+#    Updated: 2023/01/29 15:38:31 by sjadalla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 
 NAME        := philo
 CC        := gcc
-FLAGS    := -Wall -Wextra -Werror -pthread 
+FLAGS    := -Wall -Wextra -Werror -g3 -pthread 
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -26,6 +26,7 @@ SRCS        :=      check.c \
                           init.c \
                           main.c \
                           philo_utils.c \
+						  death.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

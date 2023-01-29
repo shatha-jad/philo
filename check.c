@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:54:28 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/26 17:53:22 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:10:36 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_arg(char **argv, t_data *data)
 			return (0);
 	}
 	else if (!argv[5])
-		data->n_eat = 99999999;
+		data->n_eat = 2147483647;
 	if (data->n_philo <= 0 || data->tdie <= 60 || data->tsleep <= 60
 		|| data->teat <= 60 || data->n_philo > 200)
 		return (0);

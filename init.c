@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:43:30 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/26 17:48:35 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:37:32 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,29 @@ void	set_philos(t_data *data, t_philo	*philo)
 	unsigned int	i;
 	unsigned int	j;
 
-	j = 1;
+	j = 0;
 	i = 0;
 	data->time = get_time(NULL);
 	data->death_flag = 0;
 	while (i < data->n_philo)
 	{
-		philo[i].philo_id = j;
+		philo[i].philo_id = j + 1;
 		philo[i].left_fork = j;
-		if ((j + 1) % (data->n_philo + 1) == 0)
-			philo[i].right_fork = 1;
-		else
-			philo[i].right_fork = (j + 1) % (data->n_philo + 1);
+		philo[i].right_fork = (j + 1) % (data->n_philo);
 		philo[i].death_flag = 0;
 		philo[i].data = data;
-		philo[i].last_meal = data->time;
+		philo[i].last_meal = get_time(NULL);
 		philo[i].times_ate = 0;
 		data->forks[i] = 0;
 		i++;
 		j++;
 	}
 }
+
+		// if ((j + 1) % (data->n_philo + 1) == 0)
+		// 	philo[i].right_fork = 1;
+		// else
+		// 	philo[i].right_fork = (j + 1) % (data->n_philo + 1);
 
 int	mutex_intit(t_data	*data)
 {
@@ -89,11 +91,10 @@ void	threads(t_data *data)
 		usleep(500);
 		i++;
 	}
-	death(data);
+	death_monitor(data);
 	i = 0;
 	while (i < data->n_philo)
-			pthread_join(data->philos[i++], NULL);
-
+		pthread_join(data->philos[i++], NULL);
 }
 
 void	destroy_mutex(t_data *data)
@@ -109,5 +110,6 @@ void	destroy_mutex(t_data *data)
 	pthread_mutex_destroy(&data->mutex_print);
 	pthread_mutex_destroy(&data->mutex_dead);
 	pthread_mutex_destroy(&data->mutex_eat);
+	pthread_mutex_destroy(&data->mutex_meal);
 	free(data);
 }
