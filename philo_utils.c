@@ -6,7 +6,7 @@
 /*   By: sjadalla <sjadalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 19:59:57 by sjadalla          #+#    #+#             */
-/*   Updated: 2023/01/29 15:46:03 by sjadalla         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:29:17 by sjadalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	my_sleep(t_philo *philo, int ms)
 	(void)philo;
 	et = get_time(NULL);
 	while ((get_time(NULL) - et) < ms)
+	{
+		if ((get_time(NULL) - et) >= philo->data->tdie)
+			break ;
 		usleep(ms);
+	}
 }
 
 void	go_sleep(t_philo *philo)
